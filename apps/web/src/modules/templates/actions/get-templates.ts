@@ -1,3 +1,5 @@
+'use server';
+
 import { PaginatedResponse, Template } from '@apps/shared/types';
 import { fetchPublic } from '@lib/fetch-public';
 

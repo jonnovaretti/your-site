@@ -210,6 +210,12 @@ importers:
       ai:
         specifier: ^4.0.18
         version: 4.3.16(react@19.0.0)(zod@3.25.34)
+      class-transformer:
+        specifier: ^0.5.1
+        version: 0.5.1
+      class-validator:
+        specifier: ^0.14.1
+        version: 0.14.2
     devDependencies:
       '@types/node':
         specifier: ^22.10.2

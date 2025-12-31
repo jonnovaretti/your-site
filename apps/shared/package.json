@@ -2,13 +2,15 @@
   "name": "@your-site/shared",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "dtos": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w"
   },
   "dependencies": {
-    "ai": "^4.0.18"
+    "ai": "^4.0.18",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
