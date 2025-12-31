@@ -9,7 +9,7 @@ export class TemplatesController {
   async listTemplates(
     @Query('page') page: string = '1',
     @Query('limit') limit: string = '20',
-  ): Promise<TemplatePaginatedResponse> {
+  ): Promise<TemplatesPaginatedResponse> {
     const pageNumber = parseInt(page, 10);
     const limitNumber = parseInt(limit, 10);
 

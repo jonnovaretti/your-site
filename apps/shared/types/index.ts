@@ -1,3 +1,5 @@
+import { TemplatesPaginatedResponse } from './templates-paginated-response';
+
 export interface User {
   _id: string;
   id: string;
@@ -20,3 +22,5 @@ export interface PaginatedResponse<T> {
   page: number;
   pages: number;
 }
+
+export { TemplatesPaginatedResponse };
