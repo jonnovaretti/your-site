@@ -27,6 +27,8 @@ export const authApi = {
   },
 
   getProfile: async () => {
+    console.log('get profile');
+
     const response = await apiClient.get<User>('/auth/profile');
     return response.data;
   },

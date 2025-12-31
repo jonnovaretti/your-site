@@ -1,3 +1,13 @@
+export interface Template {
+  id: string;
+  name: string;
+  images: string[];
+  description: string;
+  category: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Product {
   _id: string;
   name: string;
@@ -51,4 +61,3 @@ export interface PaginatedResponse<T> {
   page: number;
   pages: number;
 }
-
