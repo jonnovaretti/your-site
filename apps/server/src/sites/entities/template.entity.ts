@@ -1,4 +1,4 @@
-import { Category } from '../types/category.type';
+import { CATEGORY, Category } from '../types/category.type';
 import {
   Column,
   CreateDateColumn,
@@ -20,12 +20,10 @@ export class Template {
   @Column()
   description: string;
 
-  imagesPaths: string[];
-
   @OneToMany(() => Thumbnail, t => t.template)
   thumbnails: Thumbnail[];
 
-  @Column({ type: 'enum' })
+  @Column({ type: 'enum', enum: Object.values(CATEGORY) })
   category: Category;
 
   @CreateDateColumn()

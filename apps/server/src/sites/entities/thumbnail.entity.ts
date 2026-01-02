@@ -7,7 +7,7 @@ export class Thumbnail {
   id: number;
 
   @Column()
-  path: string;
+  url: string;
 
   @ManyToOne(() => Template, template => template.thumbnails)
   template: Template;

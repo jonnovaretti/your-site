@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { connectDB } from '../utils/config';
 import { UsersModule } from 'src/users/users.module';
 import { CommandModule } from 'nestjs-command';
+import { SitesModule } from '@sites/sites.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CommandModule } from 'nestjs-command';
     }),
     CommandModule,
     UsersModule,
+    SitesModule,
   ],
   controllers: [],
   providers: [],
