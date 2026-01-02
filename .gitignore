@@ -2,6 +2,8 @@
 
 #seeds
 seeds
+!apps/server/src/database/seeds/
+!apps/server/src/database/seeds/**
 *.http
 
 # turbo

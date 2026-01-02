@@ -1,10 +1,14 @@
+import 'dotenv/config';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { runSeeders, SeederOptions } from 'typeorm-extension';
+import { runSeeders } from 'typeorm-extension';
+import { Template } from '../sites/entities/template.entity';
+import { Thumbnail } from '../sites/entities/thumbnail.entity';
 
 (async () => {
   const options: DataSourceOptions = {
     type: 'postgres',
-    database: 'your_site_db',
+    url: process.env.DATABASE_URL,
+    entities: [Template, Thumbnail],
   };
 
   const dataSource = new DataSource(options);
