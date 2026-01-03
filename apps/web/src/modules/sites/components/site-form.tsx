@@ -25,6 +25,12 @@ import {
   SelectValue,
 } from '@components/ui/select';
 import { getIndustries } from '@lib/industries-options';
+import {
+  CheckboxGroup,
+  CheckboxGroupItem,
+} from '@components/ui/checkbox-group';
+import { getSections } from '@lib/sections-options';
+import { Textarea } from '@components/ui/textarea';
 
 const formSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -100,7 +106,7 @@ export function SiteForm() {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input {...field} type="description" />
+                    <Textarea {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -130,6 +136,44 @@ export function SiteForm() {
                         ))}
                       </SelectContent>
                     </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="sections"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Sections</FormLabel>
+                  <FormControl>
+                    <CheckboxGroup className="gap-2">
+                      {getSections().map(section => (
+                        <div
+                          key={section.code}
+                          className="flex items-center gap-2"
+                        >
+                          <CheckboxGroupItem
+                            checked={field.value?.includes(section.code)}
+                            onChange={event => {
+                              const currentValues = field.value ?? [];
+                              const nextValues = event.target.checked
+                                ? Array.from(
+                                    new Set([...currentValues, section.code]),
+                                  )
+                                : currentValues.filter(
+                                    value => value !== section.code,
+                                  );
+                              field.onChange(nextValues);
+                            }}
+                          />
+                          <span className="text-sm font-normal">
+                            {section.name}
+                          </span>
+                        </div>
+                      ))}
+                    </CheckboxGroup>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
