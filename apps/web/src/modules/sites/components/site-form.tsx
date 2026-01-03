@@ -47,9 +47,9 @@ export function SiteForm() {
     },
   });
 
-  const createSiteDraft = useMutation({
+  const createSite = useMutation({
     mutationFn: (values: z.infer<typeof formSchema>) =>
-      apiClient.post('/site/draft', {
+      apiClient.post('/site', {
         name: values.name,
         description: values.description,
         market: values.market,
@@ -74,12 +74,10 @@ export function SiteForm() {
   return (
     <Card className="mt-10 max-w-2xl mx-auto">
       <div className="p-6">
-        <h2 className="text-2xl font-bold mb-6">User Profile</h2>
+        <h2 className="text-2xl font-bold mb-6">Site</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(values =>
-              createSiteDraft.mutate(values),
-            )}
+            onSubmit={form.handleSubmit(values => createSite.mutate(values))}
             className="space-y-6"
           >
             <FormField
@@ -140,9 +138,9 @@ export function SiteForm() {
             <Button
               type="submit"
               className="w-full"
-              disabled={createSiteDraft.isPending}
+              disabled={createSite.isPending}
             >
-              {createSiteDraft.isPending ? 'Creating...' : 'Create site draft'}
+              {createSite.isPending ? 'Creating...' : 'Create site'}
             </Button>
           </form>
         </Form>
