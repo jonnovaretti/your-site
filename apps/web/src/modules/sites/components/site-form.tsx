@@ -34,8 +34,11 @@ import { Textarea } from '@components/ui/textarea';
 
 const formSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  description: z.string().min(50),
-  market: z.string().min(3, 'Enter a valid market'),
+  description: z
+    .string()
+    .min(50, 'The description should have more than 50 characters')
+    .max(500, 'Your description can not have more then 500 characters'),
+  industry: z.string().min(1, 'Select an industry'),
   sections: z.array(z.string()).min(3),
 });
 
@@ -48,8 +51,8 @@ export function SiteForm() {
     values: {
       name: '',
       description: '',
-      market: '',
-      sections: ['home', 'contact', 'map'],
+      industry: '',
+      sections: ['home', 'contact'],
     },
   });
 
@@ -58,7 +61,7 @@ export function SiteForm() {
       apiClient.post('/site', {
         name: values.name,
         description: values.description,
-        market: values.market,
+        industry: values.industry,
         sections: values.sections,
       }),
     onSuccess: () => {
@@ -91,7 +94,12 @@ export function SiteForm() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <div className="flex flex-col gap-2">
+                    <FormLabel>Name</FormLabel>
+                    <FormLabel className="text-xs font-extralight">
+                      Enter your company name
+                    </FormLabel>
+                  </div>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -104,7 +112,14 @@ export function SiteForm() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <div className="flex flex-col gap-2">
+                    <FormLabel>Description</FormLabel>
+                    <FormLabel className="text-xs font-extralight">
+                      Explain your business. What do you do? When was your
+                      company founded? What is your mission? Elaborate a good
+                      description, AI will use it to create your site.
+                    </FormLabel>
+                  </div>
                   <FormControl>
                     <Textarea {...field} />
                   </FormControl>
@@ -114,17 +129,22 @@ export function SiteForm() {
             />
             <FormField
               control={form.control}
-              name="market"
+              name="industry"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Industry</FormLabel>
+                  <div className="flex flex-col gap-2">
+                    <FormLabel>Industry</FormLabel>
+                    <FormLabel className="text-xs font-extralight">
+                      Select your company&apos;s industry
+                    </FormLabel>
+                  </div>
                   <FormControl>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select your company's industry" />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         {getIndustries().map(industry => (
@@ -146,7 +166,12 @@ export function SiteForm() {
               name="sections"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sections</FormLabel>
+                  <div className="flex flex-col gap-2">
+                    <FormLabel>Sections</FormLabel>
+                    <FormLabel className="text-xs font-extralight">
+                      Select which sections you want to have in your site
+                    </FormLabel>
+                  </div>
                   <FormControl>
                     <CheckboxGroup className="gap-2">
                       {getSections().map(section => (
@@ -155,6 +180,7 @@ export function SiteForm() {
                           className="flex items-center gap-2"
                         >
                           <CheckboxGroupItem
+                            disabled={section.disabled}
                             checked={field.value?.includes(section.code)}
                             onChange={event => {
                               const currentValues = field.value ?? [];
