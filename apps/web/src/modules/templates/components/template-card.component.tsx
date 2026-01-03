@@ -1,10 +1,10 @@
-import { Template } from '@apps/shared/types';
+import { TemplateResponse } from '@apps/shared/types/template.response';
 import { Card } from '@components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
 
 interface TemplateCardProps {
-  template: Template;
+  template: TemplateResponse;
 }
 
 export function TemplateCard({ template }: TemplateCardProps) {
@@ -13,7 +13,7 @@ export function TemplateCard({ template }: TemplateCardProps) {
       <Card className="h-full overflow-hidden transition-colors hover:bg-accent">
         <div className="relative aspect-square">
           <Image
-            src={template.images[0]}
+            src={template.thumbnailsUrls[0]}
             alt={template.name}
             fill
             className="object-cover"
@@ -23,13 +23,7 @@ export function TemplateCard({ template }: TemplateCardProps) {
         <div className="p-4 border-t border-border">
           <h3 className="font-medium">{template.name}</h3>
           <div className="mt-2 flex items-center justify-between">
-            <p className="text-lg font-bold">${template.description}</p>
-            <div className="flex items-center gap-1">
-              <span>⭐</span>
-              <span className="text-sm text-muted-foreground">
-                {template.category}
-              </span>
-            </div>
+            <p className="text-lg">{template.description}</p>
           </div>
         </div>
       </Card>

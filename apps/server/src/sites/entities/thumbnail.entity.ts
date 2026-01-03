@@ -1,14 +1,23 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Template } from './template.entity';
 
 @Entity()
 export class Thumbnail {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('identity')
   id: number;
 
   @Column()
   url: string;
 
-  @ManyToOne(() => Template, template => template.thumbnails)
+  @ManyToOne(() => Template, template => template.thumbnails, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'template_id' })
   template: Template;
 }

@@ -10,14 +10,14 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { getVisiblePages } from '@/lib/utils';
-import { Template } from '@apps/shared/types';
+import { TemplateResponse } from '@apps/shared/types/template.response';
 import { useEffect, useState } from 'react';
 import { getTemplates } from '../actions/get-templates';
 import { TemplateCardSkeleton } from './template-card-skeleton.component';
 import { TemplateCard } from './template-card.component';
 
 interface TemplateGridProps {
-  templates?: Template[];
+  templates?: TemplateResponse[];
   searchKeyword?: string;
   currentPage?: number;
 }
@@ -36,7 +36,6 @@ export function TemplatesGrid({
       setIsLoading(true);
       const fetchSearchResults = async () => {
         try {
-          console.log('fetching templates');
           const { items, pages: totalPages } = await getTemplates(
             currentPage,
             10,

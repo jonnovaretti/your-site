@@ -2,7 +2,7 @@ import { TemplatesPaginatedResponse } from '@apps/shared/types';
 import { Controller, Get, Query } from '@nestjs/common';
 import { TemplatesService } from '@sites/services/templates.service';
 
-@Controller()
+@Controller('templates')
 export class TemplatesController {
   constructor(private readonly templatesService: TemplatesService) {}
 
@@ -18,6 +18,8 @@ export class TemplatesController {
       pageNumber,
       limitNumber,
     );
+
+    console.log(templatesFound);
 
     return {
       page: templatesFound.page,

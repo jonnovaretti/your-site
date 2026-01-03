@@ -18,6 +18,7 @@ export class TemplatesService {
       order: { createdAt: 'DESC' },
       skip,
       take: limit,
+      relations: { thumbnails: true },
     });
 
     return {

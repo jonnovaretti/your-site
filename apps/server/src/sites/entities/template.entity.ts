@@ -11,7 +11,7 @@ import { Thumbnail } from './thumbnail.entity';
 
 @Entity()
 export class Template {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('identity')
   id: number;
 
   @Column()
@@ -23,7 +23,7 @@ export class Template {
   @OneToMany(() => Thumbnail, t => t.template)
   thumbnails: Thumbnail[];
 
-  @Column({ type: 'enum', enum: Object.values(CATEGORY) })
+  @Column({ type: 'enum', enum: Object.keys(CATEGORY) })
   category: Category;
 
   @CreateDateColumn()
