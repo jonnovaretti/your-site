@@ -1,5 +1,7 @@
-import { INDUSTRY_OPTIONS, WEBSITE_TYPE_OPTIONS } from '@apps/shared/types';
-import { WebSiteType } from '@websites/types/type-site.type';
+import { WEBSITE_TYPE_OPTIONS } from '@apps/shared/types';
+import { User } from '@users/entities/user.entity';
+import { Status, STATUS } from '@websites/types/status.type';
+import { WebsiteType } from '@websites/types/type-site.type';
 import {
   Column,
   CreateDateColumn,
@@ -8,9 +10,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Industry } from './industry.entity';
 import { Template } from './template.entity';
-import { Status, STATUS } from '@websites/types/status.type';
 
 @Entity()
 export class Website {
@@ -24,16 +24,16 @@ export class Website {
   description: string;
 
   @ManyToOne<Template>(() => Template, { nullable: true })
-  template: Template;
-
-  @Column({ type: 'enum', enum: Object.keys(INDUSTRY_OPTIONS) })
-  industry: Industry;
+  template?: Template;
 
   @Column({ type: 'enum', enum: Object.keys(WEBSITE_TYPE_OPTIONS) })
-  type: WebSiteType;
+  type: WebsiteType;
 
   @Column({ type: 'enum', enum: Object.keys(STATUS) })
   status: Status;
+
+  @ManyToOne<User>(() => User)
+  createdBy: User;
 
   @CreateDateColumn()
   createdAt: Date;

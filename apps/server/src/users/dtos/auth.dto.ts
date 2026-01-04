@@ -6,13 +6,13 @@ export class LoginDto {
     example: 'john@example.com',
   })
   @IsEmail()
-  email!: string;
+  email: string;
 
   @ApiProperty({
     example: 'password123',
   })
   @IsString()
-  password!: string;
+  password: string;
 }
 
 export class TokensDto {
@@ -21,14 +21,14 @@ export class TokensDto {
     description: 'JWT access token',
   })
   @IsString()
-  accessToken!: string;
+  accessToken: string;
 
   @ApiProperty({
     example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
     description: 'JWT refresh token',
   })
   @IsString()
-  refreshToken!: string;
+  refreshToken: string;
 }
 
 export interface TokenPayload {
@@ -41,22 +41,22 @@ export interface TokenPayload {
 
 export class UserResponseDto {
   @ApiProperty()
-  id!: string;
+  id: string;
 
   @ApiProperty()
-  email!: string;
+  email: string;
 
   @ApiProperty()
-  name!: string;
+  name: string;
 
   @ApiProperty()
-  isAdmin!: boolean;
+  isAdmin: boolean;
 }
 
 export class AuthResponseDto {
   @ApiProperty()
-  tokens!: TokensDto;
+  tokens: TokensDto;
 
   @ApiProperty()
-  user!: UserResponseDto;
+  user: UserResponseDto;
 }

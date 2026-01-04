@@ -1,5 +1,4 @@
-export interface User {
-  _id: string;
+export interface UserAuthenticated {
   id: string;
   name: string;
   email: string;

@@ -2,17 +2,17 @@ import { Expose, Transform } from 'class-transformer';
 
 export class UserDto {
   @Expose()
-  email!: string;
+  email: string;
 
   @Expose()
   @Transform(({ key, obj }) => obj[key])
-  id!: string;
+  id: string;
 
   @Expose()
-  name!: string;
+  name: string;
 
   @Expose()
-  isAdmin!: boolean;
+  isAdmin: boolean;
 
   @Expose()
   accessToken?: string;

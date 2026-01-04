@@ -12,23 +12,23 @@ export class User {
   id: string;
 
   @Column()
-  name!: string;
+  name: string;
 
   @Column({ unique: true })
-  email!: string;
+  email: string;
 
   @Column()
-  password!: string;
+  password: string;
 
   @Column({ default: false })
-  isAdmin!: boolean;
+  isAdmin: boolean;
 
   @Column({ nullable: true })
   refreshToken?: string;
 
   @CreateDateColumn()
-  createdAt!: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updatedAt!: Date;
+  updatedAt: Date;
 }

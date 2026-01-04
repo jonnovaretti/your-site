@@ -19,5 +19,5 @@ export class Thumbnail {
     nullable: false,
   })
   @JoinColumn({ name: 'template_id' })
-  template: Template;
+  template?: Template;
 }
