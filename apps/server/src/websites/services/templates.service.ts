@@ -1,6 +1,6 @@
 import { PaginatedResponse } from '@apps/shared/types';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Template } from '@sites/entities/template.entity';
+import { Template } from '@websites/entities/template.entity';
 import { Repository } from 'typeorm';
 
 export class TemplatesService {

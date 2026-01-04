@@ -1,13 +1,15 @@
-import { CATEGORY, Category } from '../types/category.type';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Thumbnail } from './thumbnail.entity';
+import { Industry } from './industry.entity';
 
 @Entity()
 export class Template {
@@ -20,11 +22,15 @@ export class Template {
   @Column()
   description: string;
 
+  @Column()
+  url: string;
+
   @OneToMany(() => Thumbnail, t => t.template)
   thumbnails: Thumbnail[];
 
-  @Column({ type: 'enum', enum: Object.keys(CATEGORY) })
-  category: Category;
+  @ManyToMany(() => Industry)
+  @JoinTable()
+  industries: Industry[];
 
   @CreateDateColumn()
   createdAt: Date;

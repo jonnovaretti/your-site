@@ -3,7 +3,7 @@ export interface TemplateResponse {
   name: string;
   description: string;
   thumbnailsUrls: string[];
-  category: string;
+  industries: string[];
   createdAt: Date;
   updatedAt: Date;
 }

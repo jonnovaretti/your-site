@@ -1,6 +1,6 @@
 import { TemplatesPaginatedResponse } from '@apps/shared/types';
 import { Controller, Get, Query } from '@nestjs/common';
-import { TemplatesService } from '@sites/services/templates.service';
+import { TemplatesService } from '@websites/services/templates.service';
 
 @Controller('templates')
 export class TemplatesController {
@@ -31,7 +31,7 @@ export class TemplatesController {
           name: t.name,
           description: t.description,
           thumbnailsUrls: t.thumbnails.map(n => n.url),
-          category: t.category,
+          industries: t.industries.map(i => i.code),
           createdAt: t.createdAt,
           updatedAt: t.updatedAt,
         };

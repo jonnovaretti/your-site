@@ -1,9 +1,7 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
 import { Button } from '@components/ui/button';
+import { Card } from '@components/ui/card';
 import {
   Form,
   FormControl,
@@ -13,10 +11,6 @@ import {
   FormMessage,
 } from '@components/ui/form';
 import { Input } from '@components/ui/input';
-import { Card } from '@components/ui/card';
-import { useToast } from '@hooks/use-toast';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@lib/api-client';
 import {
   Select,
   SelectContent,
@@ -24,13 +18,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@components/ui/select';
-import { getIndustries } from '@lib/industries-options';
-import {
-  CheckboxGroup,
-  CheckboxGroupItem,
-} from '@components/ui/checkbox-group';
-import { getSections } from '@lib/sections-options';
 import { Textarea } from '@components/ui/textarea';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useToast } from '@hooks/use-toast';
+import { apiClient } from '@lib/api-client';
+import { getWebsiteType } from '@lib/site-type-options';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 const formSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -38,8 +33,7 @@ const formSchema = z.object({
     .string()
     .min(50, 'The description should have more than 50 characters')
     .max(500, 'Your description can not have more then 500 characters'),
-  industry: z.string().min(1, 'Select an industry'),
-  sections: z.array(z.string()).min(3),
+  type: z.string().min(1, 'Select the site type'),
 });
 
 export function SiteForm() {
@@ -51,8 +45,7 @@ export function SiteForm() {
     values: {
       name: '',
       description: '',
-      industry: '',
-      sections: ['home', 'contact'],
+      type: '',
     },
   });
 
@@ -61,8 +54,7 @@ export function SiteForm() {
       apiClient.post('/site', {
         name: values.name,
         description: values.description,
-        industry: values.industry,
-        sections: values.sections,
+        type: values.type,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
@@ -83,11 +75,11 @@ export function SiteForm() {
   return (
     <>
       <div className="flex flex-row">
-        <ol className="items-center w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0 rtl:space-x-reverse">
-          <li className="flex items-center text-fg-brand space-x-3 rtl:space-x-reverse">
+        <ol className="flex w-full items-center justify-center gap-8 rtl:space-x-reverse">
+          <li className="flex items-center text-body space-x-3 rtl:space-x-reverse p-3 border-solid border-b-4 border-blue-300">
             <span className="flex items-center justify-center w-10 h-10 bg-brand-softer rounded-full lg:h-12 lg:w-12 shrink-0">
               <svg
-                className="w-5 h-5 text-fg-brand"
+                className="w-6 h-6 text-gray-800 dark:text-white"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -97,47 +89,51 @@ export function SiteForm() {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 11.917 9.724 16.5 19 7.5"
-                />
-              </svg>
-            </span>
-            <span>
-              <h3 className="font-medium leading-tight">User info</h3>
-              <p className="text-sm">Step details here</p>
-            </span>
-          </li>
-          <li className="flex items-center text-body space-x-3 rtl:space-x-reverse">
-            <span className="flex items-center justify-center w-10 h-10 bg-neutral-tertiary rounded-full lg:h-12 lg:w-12 shrink-0">
-              <svg
-                className="w-5 h-5 text-body"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 9h3m-3 3h3m-3 3h3m-6 1c-.306-.613-.933-1-1.618-1H7.618c-.685 0-1.312.387-1.618 1M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"
                 />
               </svg>
             </span>
             <span>
               <h3 className="font-medium leading-tight">Company info</h3>
-              <p className="text-sm">Step details here</p>
+              <p className="text-sm">Talk about your company</p>
             </span>
           </li>
           <li className="flex items-center text-body space-x-3 rtl:space-x-reverse">
             <span className="flex items-center justify-center w-10 h-10 bg-neutral-tertiary rounded-full lg:h-12 lg:w-12 shrink-0">
               <svg
-                className="w-5 h-5 text-body"
+                className="w-6 h-6 text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16 18H8l2.5-6 2 4 1.5-2 2 4Zm-1-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"
+                />
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1ZM8 18h8l-2-4-1.5 2-2-4L8 18Zm7-8.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"
+                />
+              </svg>
+            </span>
+            <span>
+              <h3 className="font-medium leading-tight">Template</h3>
+              <p className="text-sm">Define your site structure</p>
+            </span>
+          </li>
+          <li className="flex items-center text-body space-x-3 rtl:space-x-reverse">
+            <span className="flex items-center justify-center w-10 h-10 bg-neutral-tertiary rounded-full lg:h-12 lg:w-12 shrink-0">
+              <svg
+                className="w-6 h-6 text-gray-800 dark:text-white"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -147,16 +143,16 @@ export function SiteForm() {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 10h18M6 14h2m3 0h5M3 7v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1Z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M5.35709 16V5.78571c0-.43393.34822-.78571.77777-.78571H18.5793c.4296 0 .7778.35178.7778.78571V16M5.35709 16h-1c-.55229 0-1 .4477-1 1v1c0 .5523.44771 1 1 1H20.3571c.5523 0 1-.4477 1-1v-1c0-.5523-.4477-1-1-1h-1M5.35709 16H19.3571M9.35709 8l2.62501 2.5L9.35709 13m4.00001 0h2"
                 />
               </svg>
             </span>
             <span>
-              <h3 className="font-medium leading-tight">Payment info</h3>
-              <p className="text-sm">Step details here</p>
+              <h3 className="font-medium leading-tight">Edit design</h3>
+              <p className="text-sm">Customize your site</p>
             </span>
           </li>
         </ol>
@@ -209,13 +205,13 @@ export function SiteForm() {
               />
               <FormField
                 control={form.control}
-                name="industry"
+                name="type"
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex flex-col gap-2">
-                      <FormLabel>Industry</FormLabel>
+                      <FormLabel>Website type</FormLabel>
                       <FormLabel className="text-xs font-extralight">
-                        Select your company&apos;s industry
+                        Select the website type
                       </FormLabel>
                     </div>
                     <FormControl>
@@ -227,62 +223,15 @@ export function SiteForm() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {getIndustries().map(industry => (
-                            <SelectItem
-                              key={industry.code}
-                              value={industry.code}
-                            >
+                          {getWebsiteType().map(type => (
+                            <SelectItem key={type.value} value={type.value}>
                               <div className="flex items-center gap-2">
-                                {industry.name}
+                                {type.text}
                               </div>
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="sections"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="flex flex-col gap-2">
-                      <FormLabel>Sections</FormLabel>
-                      <FormLabel className="text-xs font-extralight">
-                        Select which sections you want to have in your site
-                      </FormLabel>
-                    </div>
-                    <FormControl>
-                      <CheckboxGroup className="gap-2">
-                        {getSections().map(section => (
-                          <div
-                            key={section.code}
-                            className="flex items-center gap-2"
-                          >
-                            <CheckboxGroupItem
-                              disabled={section.disabled}
-                              checked={field.value?.includes(section.code)}
-                              onChange={event => {
-                                const currentValues = field.value ?? [];
-                                const nextValues = event.target.checked
-                                  ? Array.from(
-                                      new Set([...currentValues, section.code]),
-                                    )
-                                  : currentValues.filter(
-                                      value => value !== section.code,
-                                    );
-                                field.onChange(nextValues);
-                              }}
-                            />
-                            <span className="text-sm font-normal">
-                              {section.name}
-                            </span>
-                          </div>
-                        ))}
-                      </CheckboxGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

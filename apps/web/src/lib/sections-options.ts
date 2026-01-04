@@ -1,12 +1,7 @@
-const sections = [
-  { code: 'home', name: 'Home', disabled: true },
-  { code: 'about', name: 'About' },
-  { code: 'services', name: 'Services' },
-  { code: 'contact', name: 'Contact', disabled: true },
-  { code: 'map', name: 'Map' },
-  { code: 'team', name: 'Team' },
-  { code: 'opening_hours', name: 'Opening hours' },
-  { code: 'partners', name: 'Partners' },
-];
+import { SECTION_OPTIONS } from '@apps/shared/types';
 
-export const getSections = () => sections;
+export const getSections = () => {
+  return Object.entries(SECTION_OPTIONS).map((key, value) => {
+    return { code: key, name: value };
+  });
+};

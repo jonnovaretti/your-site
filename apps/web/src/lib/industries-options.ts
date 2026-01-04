@@ -1,14 +1,7 @@
-export const industries = [
-  { code: 'VETERINARY', name: 'Veterinary' },
-  { code: 'FINANCE', name: 'Finance' },
-  { code: 'SELF_EMPLOYED', name: 'Self-Employed' },
-  { code: 'ENGINEERING', name: 'Engineering' },
-  { code: 'TECHNOLOGY', name: 'Technology' },
-  { code: 'HEALTHCARE', name: 'Healthcare' },
-  { code: 'EDUCATION', name: 'Education' },
-  { code: 'REAL_ESTATE', name: 'Real Estate' },
-  { code: 'LEGAL', name: 'Legal' },
-  { code: 'ECOMMERCE', name: 'E-commerce' },
-] as const;
+import { INDUSTRY_OPTIONS } from '@apps/shared/types';
 
-export const getIndustries = () => industries;
+export const getIndustries = () => {
+  return Object.entries(INDUSTRY_OPTIONS).map(([key, value]) => {
+    return { code: key, name: value };
+  });
+};

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { connectDB } from '../utils/config';
-import { UsersModule } from 'src/users/users.module';
+import { WebsitesModule } from '@websites/websites.module';
 import { CommandModule } from 'nestjs-command';
-import { SitesModule } from '@sites/sites.module';
+import { UsersModule } from 'src/users/users.module';
+import { connectDB } from '../utils/config';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { SitesModule } from '@sites/sites.module';
     }),
     CommandModule,
     UsersModule,
-    SitesModule,
+    WebsitesModule,
   ],
   controllers: [],
   providers: [],
