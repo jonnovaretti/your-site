@@ -1,5 +1,5 @@
+import { UserAuthenticated } from '@apps/shared/types';
 import { apiClient } from '@lib/api-client';
-import type { User } from '@apps/shared/types';
 
 interface LoginCredentials {
   email: string;
@@ -7,7 +7,7 @@ interface LoginCredentials {
 }
 
 interface AuthResponse {
-  user: User;
+  user: UserAuthenticated;
   accessToken: string;
   refreshToken: string;
 }
@@ -27,9 +27,7 @@ export const authApi = {
   },
 
   getProfile: async () => {
-    console.log('get profile');
-
-    const response = await apiClient.get<User>('/auth/profile');
+    const response = await apiClient.get<UserAuthenticated>('/auth/profile');
     return response.data;
   },
 

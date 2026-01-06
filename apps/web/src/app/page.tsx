@@ -1,5 +1,5 @@
 import { Container } from '@components/ui/container';
-import { WebsiteForm } from '@modules/sites/components/site-form';
+import { WebsiteForm } from '@modules/websites/components/website-form';
 
 export default async function Home() {
   return (

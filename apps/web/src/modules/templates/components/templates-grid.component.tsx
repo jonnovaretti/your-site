@@ -10,11 +10,11 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { getVisiblePages } from '@/lib/utils';
-import { TemplateResponse } from '@apps/shared/types/template.response';
 import { useEffect, useState } from 'react';
 import { getTemplates } from '../actions/get-templates';
 import { TemplateCardSkeleton } from './template-card-skeleton.component';
 import { TemplateCard } from './template-card.component';
+import { TemplateResponse } from '@apps/shared/types/template-response';
 
 interface TemplateGridProps {
   templates?: TemplateResponse[];

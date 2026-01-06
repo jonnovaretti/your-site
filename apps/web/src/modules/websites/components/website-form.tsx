@@ -24,14 +24,16 @@ import { useToast } from '@hooks/use-toast';
 import { apiClient } from '@lib/api-client';
 import { getWebsiteType } from '@lib/site-type-options';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 export function WebsiteForm() {
   const { toast } = useToast();
+  const router = useRouter();
   const queryClient = useQueryClient();
   const formSchema = z.object({
-    name: z.string().min(1, 'Name is required'),
+    title: z.string().min(1, 'Name is required'),
     type: z.string().min(1, 'Select the site type'),
     description: z
       .string()
@@ -42,16 +44,16 @@ export function WebsiteForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      name: '',
+      title: '',
       description: '',
       type: '',
     },
   });
 
-  const createSite = useMutation({
+  const createWebsite = useMutation({
     mutationFn: (values: z.infer<typeof formSchema>) =>
       apiClient.post('/websites', {
-        name: values.name,
+        title: values.title,
         description: values.description,
         type: values.type,
       }),
@@ -61,6 +63,7 @@ export function WebsiteForm() {
         title: 'Move user to templates',
         description: 'Your profile has been successfully updated.',
       });
+      router.push('/');
     },
     onError: () => {
       toast({
@@ -74,21 +77,21 @@ export function WebsiteForm() {
   return (
     <Card className="mt-10 max-w-2xl mx-auto">
       <div className="p-6">
-        <h2 className="text-2xl font-bold mb-6">Site</h2>
+        <h2 className="text-2xl font-bold mb-6">Website</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(values => createSite.mutate(values))}
+            onSubmit={form.handleSubmit(values => createWebsite.mutate(values))}
             className="space-y-6"
           >
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <div className="flex flex-col gap-2">
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Title</FormLabel>
                     <FormLabel className="text-xs font-extralight">
-                      Enter your company name
+                      Enter a title for your website
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -155,9 +158,9 @@ export function WebsiteForm() {
             <Button
               type="submit"
               className="w-full"
-              disabled={createSite.isPending}
+              disabled={createWebsite.isPending}
             >
-              {createSite.isPending ? 'Creating...' : 'Create site'}
+              {createWebsite.isPending ? 'Creating...' : 'Create site'}
             </Button>
           </form>
         </Form>
