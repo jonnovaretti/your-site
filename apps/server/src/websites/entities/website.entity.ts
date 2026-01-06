@@ -1,7 +1,7 @@
 import { WEBSITE_TYPE_OPTIONS } from '@apps/shared/types';
 import { User } from '@users/entities/user.entity';
 import { Status, STATUS } from '@websites/types/status.type';
-import { WebsiteType } from '@websites/types/type-site.type';
+import { WebsiteType } from '@websites/types/website-type.type';
 import {
   Column,
   CreateDateColumn,

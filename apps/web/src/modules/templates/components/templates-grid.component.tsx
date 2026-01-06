@@ -31,29 +31,27 @@ export function TemplatesGrid({
   const [pages, setPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (searchKeyword) {
-      setIsLoading(true);
-      const fetchSearchResults = async () => {
-        try {
-          const { items, pages: totalPages } = await getTemplates(
-            currentPage,
-            10,
-            searchKeyword,
-          );
-          setTemplates(items);
-          setPages(totalPages);
-        } catch (error) {
-          console.error('Failed to search templates:', error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
+  console.log(templates);
 
-      fetchSearchResults();
-    } else {
-      setTemplates(initialTemplates);
-    }
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchSearchResults = async () => {
+      try {
+        const { items, pages: totalPages } = await getTemplates(
+          currentPage,
+          10,
+          searchKeyword,
+        );
+        setTemplates(items);
+        setPages(totalPages);
+      } catch (error) {
+        console.error('Failed to search templates:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSearchResults();
   }, [searchKeyword, currentPage, initialTemplates]);
 
   if (isLoading) {

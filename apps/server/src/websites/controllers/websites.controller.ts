@@ -7,7 +7,7 @@ import { CurrentUser } from '@decorators/current-user.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CreateWebsiteService } from '@websites/services/create-website.service';
-import { isWebsiteType } from '@websites/types/type-site.type';
+import { isWebsiteType } from '@websites/types/website-type.type';
 import { InvalidArgumentError } from 'ai';
 
 @Controller('websites')
@@ -20,8 +20,6 @@ export class WebsitesController {
     @Body() dto: WebsiteCreateRequest,
     @CurrentUser() user: UserAuthenticated,
   ): Promise<ApiResponse<number>> {
-    console.log('bal');
-
     if (!isWebsiteType(dto.type)) {
       throw new InvalidArgumentError({
         parameter: 'type',

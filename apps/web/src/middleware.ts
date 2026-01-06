@@ -24,8 +24,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  console.log('2 middleware');
-
   // Redirect unauthenticated users trying to access protected pages
   if (
     !isAuthenticated &&

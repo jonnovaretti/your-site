@@ -25,6 +25,8 @@ export default function AdminLayout({
     );
   }
 
+  console.log(user);
+
   if (!user?.isAdmin || error) {
     redirect('/login');
   }

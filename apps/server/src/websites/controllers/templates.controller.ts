@@ -19,8 +19,6 @@ export class TemplatesController {
       limitNumber,
     );
 
-    console.log(templatesFound);
-
     return {
       page: templatesFound.page,
       pages: templatesFound.pages,
@@ -31,7 +29,7 @@ export class TemplatesController {
           name: t.name,
           description: t.description,
           thumbnailsUrls: t.thumbnails.map(n => n.url),
-          industries: t.industries.map(i => i.code),
+          industries: t.industries?.map(i => i.code),
           createdAt: t.createdAt,
           updatedAt: t.updatedAt,
         };
