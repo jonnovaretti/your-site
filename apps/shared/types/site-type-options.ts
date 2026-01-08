@@ -1,4 +1,4 @@
-export const WEBSITE_TYPE_OPTIONS = {
+export const SITE_TYPE_OPTIONS = {
   // Company & Business
   COMPANY: 'Company',
   LANDING_PAGE: 'Landing page',

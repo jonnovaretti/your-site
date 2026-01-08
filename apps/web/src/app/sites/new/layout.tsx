@@ -3,7 +3,7 @@
 import { Container } from '@components/ui/container';
 import { usePathname } from 'next/navigation';
 
-export default function WebsiteLayout({
+export default function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -18,13 +18,13 @@ export default function WebsiteLayout({
         <ol className="flex w-full items-center justify-center gap-8 rtl:space-x-reverse">
           <li
             className={
-              currentPath === '/websites/new'
+              currentPath === '/sites/new'
                 ? 'flex items-center text-body space-x-3 rtl:space-x-reverse p-3 border-solid border-b-4 border-blue-300'
                 : 'flex items-center text-body space-x-3 rtl:space-x-reverse p-3'
             }
           >
             <span className="flex items-center justify-center w-10 h-10 bg-brand-softer rounded-full lg:h-12 lg:w-12 shrink-0">
-              {currentPath === '/websites/new' ? (
+              {currentPath === '/sites/new' ? (
                 <svg
                   className="w-6 h-6 text-gray-800 dark:text-white"
                   aria-hidden="true"
@@ -69,7 +69,7 @@ export default function WebsiteLayout({
           </li>
           <li
             className={
-              currentPath === '/websites/new/templates'
+              currentPath === '/sites/new/templates'
                 ? 'flex items-center text-body space-x-3 rtl:space-x-reverse p-3 border-solid border-b-4 border-blue-300'
                 : 'flex items-center text-body space-x-3 rtl:space-x-reverse p-3'
             }

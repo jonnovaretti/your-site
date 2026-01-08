@@ -1,5 +1,5 @@
 import { SECTION_OPTIONS } from '@apps/shared/types';
-import { SectionType } from '@websites/types/section.type';
+import { SectionType } from '@sites/types/section.type';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

@@ -2,21 +2,21 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '@users/users.module';
 import { TemplatesController } from './controllers/templates.controller';
-import { WebsitesController } from './controllers/websites.controller';
+import { SitesController } from './controllers/sites.controller';
 import { Industry } from './entities/industry.entity';
 import { Section } from './entities/section.entity';
 import { Template } from './entities/template.entity';
 import { Thumbnail } from './entities/thumbnail.entity';
-import { Website } from './entities/website.entity';
-import { CreateWebsiteService } from './services/create-website.service';
+import { Site } from './entities/site.entity';
+import { CreateSiteService } from './services/create-site.service';
 import { TemplatesService } from './services/templates.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Template, Thumbnail, Industry, Website, Section]),
+    TypeOrmModule.forFeature([Template, Thumbnail, Industry, Site, Section]),
     UsersModule,
   ],
-  controllers: [TemplatesController, WebsitesController],
-  providers: [TemplatesService, CreateWebsiteService],
+  controllers: [TemplatesController, SitesController],
+  providers: [TemplatesService, CreateSiteService],
 })
-export class WebsitesModule {}
+export class SitesModule {}

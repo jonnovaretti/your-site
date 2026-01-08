@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class WebsiteCreateRequest {
+export class SiteCreateRequest {
   @IsString()
   title: string;
 

@@ -1,7 +1,7 @@
-import { WEBSITE_TYPE_OPTIONS } from '@apps/shared/types';
+import { SITE_TYPE_OPTIONS } from '@apps/shared/types';
 import { User } from '@users/entities/user.entity';
-import { Status, STATUS } from '@websites/types/status.type';
-import { WebsiteType } from '@websites/types/website-type.type';
+import { Status, STATUS } from '@sites/types/status.type';
+import { SiteType } from '@sites/types/site-type.type';
 import {
   Column,
   CreateDateColumn,
@@ -13,7 +13,7 @@ import {
 import { Template } from './template.entity';
 
 @Entity()
-export class Website {
+export class Site {
   @PrimaryGeneratedColumn('identity')
   id: number;
 
@@ -26,8 +26,8 @@ export class Website {
   @ManyToOne<Template>(() => Template, { nullable: true })
   template?: Template;
 
-  @Column({ type: 'enum', enum: Object.keys(WEBSITE_TYPE_OPTIONS) })
-  type: WebsiteType;
+  @Column({ type: 'enum', enum: Object.keys(SITE_TYPE_OPTIONS) })
+  type: SiteType;
 
   @Column({ type: 'enum', enum: Object.keys(STATUS) })
   status: Status;

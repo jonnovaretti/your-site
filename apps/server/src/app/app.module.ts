@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { WebsitesModule } from '@websites/websites.module';
+import { SitesModule } from '@sites/sites.module';
 import { CommandModule } from 'nestjs-command';
 import { UsersModule } from 'src/users/users.module';
 import { connectDB } from '../utils/config';
@@ -18,7 +18,7 @@ import { connectDB } from '../utils/config';
     }),
     CommandModule,
     UsersModule,
-    WebsitesModule,
+    SitesModule,
   ],
   controllers: [],
   providers: [],
