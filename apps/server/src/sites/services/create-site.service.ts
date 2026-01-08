@@ -1,27 +1,27 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersService } from '@users/services/users.service';
 import { BusinessRequirementError } from '@utils/business-requirement.error';
-import { Website } from '@websites/entities/website.entity';
+import { Site } from '@sites/entities/site.entity';
 import { Repository } from 'typeorm';
 
-export class CreateWebsiteService {
+export class CreateSiteService {
   constructor(
-    @InjectRepository(Website)
-    private readonly websiteRepository: Repository<Website>,
+    @InjectRepository(Site)
+    private readonly siteRepository: Repository<Site>,
     private readonly userService: UsersService,
   ) {}
 
-  async create(website: Partial<Website>, userId: string): Promise<number> {
+  async create(site: Partial<Site>, userId: string): Promise<number> {
     const user = await this.userService.findById(userId);
 
     if (!user) {
       throw new BusinessRequirementError('User not found');
     }
 
-    website.createdBy = user;
-    website.status = 'CREATING';
+    site.createdBy = user;
+    site.status = 'CREATING';
 
-    const inserted = await this.websiteRepository.save(website);
+    const inserted = await this.siteRepository.save(site);
 
     return inserted.id;
   }

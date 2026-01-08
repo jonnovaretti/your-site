@@ -1,5 +1,5 @@
 import { INDUSTRY_OPTIONS } from '@apps/shared/types';
-import { IndustryCode } from '@websites/types/industry.type';
+import { IndustryCode } from '@sites/types/industry.type';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

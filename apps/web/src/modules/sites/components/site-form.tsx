@@ -22,13 +22,13 @@ import { Textarea } from '@components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from '@hooks/use-toast';
 import { apiClient } from '@lib/api-client';
-import { getWebsiteType } from '@lib/site-type-options';
+import { getSiteType } from '@lib/site-type-options';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-export function WebsiteForm() {
+export function SiteForm() {
   const { toast } = useToast();
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -50,9 +50,9 @@ export function WebsiteForm() {
     },
   });
 
-  const createWebsite = useMutation({
+  const createSite = useMutation({
     mutationFn: (values: z.infer<typeof formSchema>) =>
-      apiClient.post('/websites', {
+      apiClient.post('/sites', {
         title: values.title,
         description: values.description,
         type: values.type,
@@ -77,10 +77,10 @@ export function WebsiteForm() {
   return (
     <Card className="mt-10 max-w-2xl mx-auto">
       <div className="p-6">
-        <h2 className="text-2xl font-bold mb-6">Website</h2>
+        <h2 className="text-2xl font-bold mb-6">Site</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(values => createWebsite.mutate(values))}
+            onSubmit={form.handleSubmit(values => createSite.mutate(values))}
             className="space-y-6"
           >
             <FormField
@@ -91,7 +91,7 @@ export function WebsiteForm() {
                   <div className="flex flex-col gap-2">
                     <FormLabel>Title</FormLabel>
                     <FormLabel className="text-xs font-extralight">
-                      Enter a title for your website
+                      Enter a title for your site
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -127,9 +127,9 @@ export function WebsiteForm() {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex flex-col gap-2">
-                    <FormLabel>Website type</FormLabel>
+                    <FormLabel>Site type</FormLabel>
                     <FormLabel className="text-xs font-extralight">
-                      Select the website type
+                      Select the site type
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -141,7 +141,7 @@ export function WebsiteForm() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {getWebsiteType().map(type => (
+                        {getSiteType().map(type => (
                           <SelectItem key={type.value} value={type.value}>
                             <div className="flex items-center gap-2">
                               {type.text}
@@ -158,9 +158,9 @@ export function WebsiteForm() {
             <Button
               type="submit"
               className="w-full"
-              disabled={createWebsite.isPending}
+              disabled={createSite.isPending}
             >
-              {createWebsite.isPending ? 'Creating...' : 'Create site'}
+              {createSite.isPending ? 'Creating...' : 'Create site'}
             </Button>
           </form>
         </Form>

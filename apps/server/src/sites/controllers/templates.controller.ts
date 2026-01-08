@@ -1,6 +1,6 @@
 import { TemplatesPaginatedResponse } from '@apps/shared/types';
 import { Controller, Get, Query } from '@nestjs/common';
-import { TemplatesService } from '@websites/services/templates.service';
+import { TemplatesService } from '@sites/services/templates.service';
 
 @Controller('templates')
 export class TemplatesController {

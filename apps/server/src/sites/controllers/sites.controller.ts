@@ -1,26 +1,26 @@
 import {
   ApiResponse,
   UserAuthenticated,
-  WebsiteCreateRequest,
+  SiteCreateRequest,
 } from '@apps/shared/types';
 import { CurrentUser } from '@decorators/current-user.decorator';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { CreateWebsiteService } from '@websites/services/create-website.service';
-import { isWebsiteType } from '@websites/types/website-type.type';
+import { CreateSiteService } from '@sites/services/create-site.service';
+import { isSiteType } from '@sites/types/site-type.type';
 import { InvalidArgumentError } from 'ai';
 
-@Controller('websites')
-export class WebsitesController {
-  constructor(private readonly createWebsiteService: CreateWebsiteService) {}
+@Controller('sites')
+export class SitesController {
+  constructor(private readonly createSiteService: CreateSiteService) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
   async create(
-    @Body() dto: WebsiteCreateRequest,
+    @Body() dto: SiteCreateRequest,
     @CurrentUser() user: UserAuthenticated,
   ): Promise<ApiResponse<number>> {
-    if (!isWebsiteType(dto.type)) {
+    if (!isSiteType(dto.type)) {
       throw new InvalidArgumentError({
         parameter: 'type',
         value: dto.type,
@@ -28,7 +28,7 @@ export class WebsitesController {
       });
     }
 
-    const id = await this.createWebsiteService.create(
+    const id = await this.createSiteService.create(
       {
         title: dto.title,
         description: dto.description,
@@ -40,7 +40,7 @@ export class WebsitesController {
     return {
       success: true,
       data: id,
-      message: 'Website was created',
+      message: 'Site was created',
     };
   }
 }
