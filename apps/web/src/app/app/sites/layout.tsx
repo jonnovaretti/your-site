@@ -10,21 +10,19 @@ export default function SiteLayout({
 }) {
   const currentPath = usePathname();
 
-  console.log(currentPath);
-
   return (
     <Container>
       <div className="flex flex-row">
         <ol className="flex w-full items-center justify-center gap-8 rtl:space-x-reverse">
           <li
             className={
-              currentPath === '/sites/new'
+              currentPath === '/app/sites'
                 ? 'flex items-center text-body space-x-3 rtl:space-x-reverse p-3 border-solid border-b-4 border-blue-300'
                 : 'flex items-center text-body space-x-3 rtl:space-x-reverse p-3'
             }
           >
             <span className="flex items-center justify-center w-10 h-10 bg-brand-softer rounded-full lg:h-12 lg:w-12 shrink-0">
-              {currentPath === '/sites/new' ? (
+              {currentPath === '/app/sites' ? (
                 <svg
                   className="w-6 h-6 text-gray-800 dark:text-white"
                   aria-hidden="true"
