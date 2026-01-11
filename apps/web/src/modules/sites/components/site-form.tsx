@@ -57,13 +57,14 @@ export function SiteForm() {
         description: values.description,
         type: values.type,
       }),
-    onSuccess: () => {
+    onSuccess: response => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
+
       toast({
         title: 'Move user to templates',
         description: 'Your profile has been successfully updated.',
       });
-      router.push('/');
+      router.push(`/app/sites/${response.data.data}/templates`);
     },
     onError: () => {
       toast({
@@ -75,96 +76,98 @@ export function SiteForm() {
   });
 
   return (
-    <Card className="mt-10 max-w-2xl mx-auto">
-      <div className="p-6">
-        <h2 className="text-2xl font-bold mb-6">Site</h2>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(values => createSite.mutate(values))}
-            className="space-y-6"
-          >
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex flex-col gap-2">
-                    <FormLabel>Title</FormLabel>
-                    <FormLabel className="text-xs font-extralight">
-                      Enter a title for your site
-                    </FormLabel>
-                  </div>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex flex-col gap-2">
-                    <FormLabel>Description</FormLabel>
-                    <FormLabel className="text-xs font-extralight">
-                      Explain your business. What do you do? When was your
-                      company founded? What is your mission? Elaborate a good
-                      description, AI will use it to create your site.
-                    </FormLabel>
-                  </div>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex flex-col gap-2">
-                    <FormLabel>Site type</FormLabel>
-                    <FormLabel className="text-xs font-extralight">
-                      Select the site type
-                    </FormLabel>
-                  </div>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {getSiteType().map(type => (
-                          <SelectItem key={type.value} value={type.value}>
-                            <div className="flex items-center gap-2">
-                              {type.text}
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={createSite.isPending}
+    <div className="pt-10">
+      <Card className="max-w-2xl mx-auto">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold mb-6">Site</h2>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(values => createSite.mutate(values))}
+              className="space-y-6"
             >
-              {createSite.isPending ? 'Creating...' : 'Create site'}
-            </Button>
-          </form>
-        </Form>
-      </div>
-    </Card>
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex flex-col gap-2">
+                      <FormLabel>Title</FormLabel>
+                      <FormLabel className="text-xs font-extralight">
+                        Enter a title for your site
+                      </FormLabel>
+                    </div>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex flex-col gap-2">
+                      <FormLabel>Description</FormLabel>
+                      <FormLabel className="text-xs font-extralight">
+                        Explain your business. What do you do? When was your
+                        company founded? What is your mission? Elaborate a good
+                        description, AI will use it to create your site.
+                      </FormLabel>
+                    </div>
+                    <FormControl>
+                      <Textarea {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex flex-col gap-2">
+                      <FormLabel>Site type</FormLabel>
+                      <FormLabel className="text-xs font-extralight">
+                        Select the site type
+                      </FormLabel>
+                    </div>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {getSiteType().map(type => (
+                            <SelectItem key={type.value} value={type.value}>
+                              <div className="flex items-center gap-2">
+                                {type.text}
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={createSite.isPending}
+              >
+                {createSite.isPending ? 'Creating...' : 'Create site'}
+              </Button>
+            </form>
+          </Form>
+        </div>
+      </Card>
+    </div>
   );
 }

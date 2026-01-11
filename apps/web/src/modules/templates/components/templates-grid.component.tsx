@@ -77,8 +77,8 @@ export function TemplatesGrid({
   const visiblePages = getVisiblePages(currentPage, pages);
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
+    <div className="p-10">
+      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
         {templates.map(template => (
           <TemplateCard key={template.id} template={template} />
         ))}

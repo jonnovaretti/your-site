@@ -5,3 +5,11 @@ export const getIndustries = () => {
     return { code: key, name: value };
   });
 };
+
+export const getIndustryText = (value: string): string => {
+  if (value in INDUSTRY_OPTIONS) {
+    return INDUSTRY_OPTIONS[value];
+  }
+
+  return value;
+};
