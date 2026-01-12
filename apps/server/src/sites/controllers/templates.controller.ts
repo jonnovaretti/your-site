@@ -30,6 +30,7 @@ export class TemplatesController {
           description: t.description,
           thumbnailsUrls: t.thumbnails.map(n => n.url),
           industries: t.industries?.map(i => i.code),
+          url: t.url,
           createdAt: t.createdAt,
           updatedAt: t.updatedAt,
         };

@@ -78,7 +78,7 @@ export function TemplatesGrid({
 
   return (
     <div className="p-10">
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
+      <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 justify-items-center">
         {templates.map(template => (
           <TemplateCard key={template.id} template={template} />
         ))}

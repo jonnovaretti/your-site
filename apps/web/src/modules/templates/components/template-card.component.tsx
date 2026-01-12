@@ -1,18 +1,16 @@
-import { INDUSTRY_OPTIONS } from '@apps/shared/types';
 import { TemplateResponse } from '@apps/shared/types/template-response';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
 import { Card } from '@components/ui/card';
 import { getIndustryText } from '@lib/industries-options';
 import Image from 'next/image';
+import router from 'next/router';
 
 interface TemplateCardProps {
   template: TemplateResponse;
 }
 
 export function TemplateCard({ template }: TemplateCardProps) {
-  console.log('sdf', template);
-
   return (
     <Card className="overflow-hidden transition-colors hover:bg-accent">
       <div className="relative aspect-square p-10">
@@ -30,7 +28,11 @@ export function TemplateCard({ template }: TemplateCardProps) {
             <h3 className="font-medium">{template.name}</h3>
           </div>
           <div className="flex-1">
-            <Button variant="ghost" size="sm">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.push(template.url)}
+            >
               View demo
             </Button>
           </div>

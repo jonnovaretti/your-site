@@ -6,4 +6,5 @@ export interface TemplateResponse {
   industries: string[];
   createdAt: Date;
   updatedAt: Date;
+  url: string;
 }
