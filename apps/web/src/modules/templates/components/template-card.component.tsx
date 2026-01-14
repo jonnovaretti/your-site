@@ -1,10 +1,9 @@
 import { TemplateResponse } from '@apps/shared/types/template-response';
 import { Badge } from '@components/ui/badge';
-import { Button } from '@components/ui/button';
 import { Card } from '@components/ui/card';
 import { getIndustryText } from '@lib/industries-options';
 import Image from 'next/image';
-import router from 'next/router';
+import Link from 'next/link';
 
 interface TemplateCardProps {
   template: TemplateResponse;
@@ -28,13 +27,11 @@ export function TemplateCard({ template }: TemplateCardProps) {
             <h3 className="font-medium">{template.name}</h3>
           </div>
           <div className="flex-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => router.push(template.url)}
-            >
-              View demo
-            </Button>
+            <Link href={template.url}>
+              <Badge className="m-1 bg-green-100 text-purple-800 hover:bg-blue-100">
+                View demo
+              </Badge>
+            </Link>
           </div>
         </div>
         <div className="p-2 items-center justify-between">
