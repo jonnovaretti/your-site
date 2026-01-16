@@ -133,7 +133,7 @@ const SiteEditor = (): React.ReactNode => {
   }, []);
 
   return (
-    <div className="flex h-900 font-sans">
+    <div className="flex h-screen font-sans">
       {/* LEFT PANEL — Editor */}
       <div className="flex-1 border-r border-gray-300 p-4 box-border">
         <button
