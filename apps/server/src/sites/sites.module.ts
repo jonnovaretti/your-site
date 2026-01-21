@@ -10,6 +10,7 @@ import { Thumbnail } from './entities/thumbnail.entity';
 import { Site } from './entities/site.entity';
 import { CreateSiteService } from './services/create-site.service';
 import { TemplatesService } from './services/templates.service';
+import { SelectTemplateService } from './services/select-template.service';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { TemplatesService } from './services/templates.service';
     UsersModule,
   ],
   controllers: [TemplatesController, SitesController],
-  providers: [TemplatesService, CreateSiteService],
+  providers: [TemplatesService, CreateSiteService, SelectTemplateService],
 })
 export class SitesModule {}

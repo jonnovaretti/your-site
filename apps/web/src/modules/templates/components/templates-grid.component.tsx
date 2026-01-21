@@ -31,8 +31,6 @@ export function TemplatesGrid({
   const [pages, setPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(templates);
-
   useEffect(() => {
     setIsLoading(true);
     const fetchSearchResults = async () => {

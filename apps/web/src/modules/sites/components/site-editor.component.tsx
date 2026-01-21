@@ -133,9 +133,9 @@ const SiteEditor = (): React.ReactNode => {
   }, []);
 
   return (
-    <div className="flex h-screen font-sans">
+    <div className="flex h-screen font-sans overflow-hidden">
       {/* LEFT PANEL — Editor */}
-      <div className="flex-1 border-r border-gray-300 p-4 box-border">
+      <div className="flex-1 min-h-0 border-r border-gray-300 p-4 box-border">
         <button
           type="button"
           className="mb-4 rounded bg-blue-500 hover:bg-sky-700 px-2 py-2 text-white shadow hover:bg-blue-700"
