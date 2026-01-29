@@ -1,5 +1,7 @@
 'use client';
 
+import { Button } from '@components/ui/button';
+import { CloudArrowUp } from 'flowbite-react-icons/outline';
 import {
   ChangeEvent,
   RefObject,
@@ -12,7 +14,7 @@ import {
 
 type ELEMENT_TYPE = 'text' | 'image';
 
-const SiteEditor = (): React.ReactNode => {
+const TemplateEditor = (): React.ReactNode => {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const [iframeContent, setIFrameContent] = useState('');
   const fieldsValues = useMemo(() => new Map(), []);
@@ -136,15 +138,7 @@ const SiteEditor = (): React.ReactNode => {
     <div className="flex h-screen font-sans overflow-hidden">
       {/* LEFT PANEL — Editor */}
       <div className="flex-1 min-h-0 border-r border-gray-300 p-4 box-border">
-        <button
-          type="button"
-          className="mb-4 rounded bg-blue-500 hover:bg-sky-700 px-2 py-2 text-white shadow hover:bg-blue-700"
-          onClick={publish}
-        >
-          Publish
-        </button>
-        <aside className="w-full bg-gray-200 shadow-sm"></aside>
-        <div className="p-5">
+        <div className="p-5 h-86">
           <div className="text-center">
             <h2 className="text-xl font-semibold mb-4">Editor</h2>
           </div>
@@ -172,6 +166,17 @@ const SiteEditor = (): React.ReactNode => {
             </div>
           )}
         </div>
+        <div className="p-5 flex justify-end">
+          <Button
+            variant="default"
+            size="default"
+            type="button"
+            onClick={publish}
+          >
+            <CloudArrowUp />
+            Publish
+          </Button>
+        </div>
       </div>
 
       {/* RIGHT PANEL — Iframe Preview */}
@@ -189,4 +194,4 @@ const SiteEditor = (): React.ReactNode => {
   );
 };
 
-export default SiteEditor;
+export default TemplateEditor;

@@ -1,5 +1,5 @@
-import { SiteForm } from '@modules/sites/components/site-form';
+import { SiteCreate } from '@modules/sites/components/site-create.component';
 
 export default function SitePage() {
-  return <SiteForm />;
+  return <SiteCreate />;
 }

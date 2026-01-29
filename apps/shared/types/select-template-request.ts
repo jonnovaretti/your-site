@@ -1,3 +1,6 @@
+import { IsString } from 'class-validator';
+
 export class SelectTemplateRequest {
-  templateId: number;
+  @IsString()
+  templateId: string;
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import { TemplateResponse } from '@apps/shared/types/template-response';
 import { Badge } from '@components/ui/badge';
 import { Card } from '@components/ui/card';
@@ -7,14 +9,14 @@ import { getIndustryText } from '@lib/industries-options';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import router from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 
 interface TemplateCardProps {
   template: TemplateResponse;
 }
 
 export function TemplateCard({ template }: TemplateCardProps) {
+  const router = useRouter();
   const searchParams = useParams();
   const siteId = searchParams.siteId;
 
@@ -32,10 +34,11 @@ export function TemplateCard({ template }: TemplateCardProps) {
       });
       router.push(`/app/sites/${response.data.data}/editor`);
     },
-    onError: () => {
+    onError: error => {
+      console.error(error);
       toast({
         title: 'Error',
-        description: 'Failed to update profile. Please try again.',
+        description: 'Failed to select the template. Please try again.',
         variant: 'destructive',
       });
     },

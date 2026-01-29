@@ -50,20 +50,22 @@ export class SitesController {
   }
 
   @Put('/:id/templates')
+  @UseGuards(JwtAuthGuard)
   async selectTemplate(
-    @Param() id: number,
+    @Param('id') id: number,
     @Body() dto: SelectTemplateRequest,
     @CurrentUser() user: UserAuthenticated,
-  ): Promise<ApiResponse<boolean>> {
+  ): Promise<ApiResponse<number>> {
     const wasAffected = await this.selectTemplateService.select({
       siteId: id,
       userId: user.id,
-      templateId: dto.templateId,
+      templateId: Number(dto.templateId),
     });
 
     return {
       success: wasAffected,
       message: wasAffected ? 'Site updated' : 'There was an error',
+      data: id,
     };
   }
 }

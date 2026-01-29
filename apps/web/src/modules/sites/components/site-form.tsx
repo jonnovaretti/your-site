@@ -20,18 +20,28 @@ import {
 } from '@components/ui/select';
 import { Textarea } from '@components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useToast } from '@hooks/use-toast';
-import { apiClient } from '@lib/api-client';
 import { getSiteType } from '@lib/site-type-options';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { UseMutateFunction } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { formSchema } from '../helpers/site-form-schema.helper';
 
-export function SiteForm() {
-  const { toast } = useToast();
-  const router = useRouter();
-  const queryClient = useQueryClient();
+type SiteFormValues = z.infer<typeof formSchema>;
+
+type Props = {
+  action: {
+    mutate: UseMutateFunction<
+      unknown, // response (often irrelevant in the child)
+      unknown, // error
+      SiteFormValues,
+      unknown
+    >;
+    isPending: boolean;
+  };
+  title: string;
+};
+
+export function SiteForm({ action, title }: Props) {
   const formSchema = z.object({
     title: z.string().min(1, 'Name is required'),
     type: z.string().min(1, 'Select the site type'),
@@ -50,31 +60,6 @@ export function SiteForm() {
     },
   });
 
-  const createSite = useMutation({
-    mutationFn: (values: z.infer<typeof formSchema>) =>
-      apiClient.post('/sites', {
-        title: values.title,
-        description: values.description,
-        type: values.type,
-      }),
-    onSuccess: response => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-
-      toast({
-        title: 'Move user to templates',
-        description: 'Your profile has been successfully updated.',
-      });
-      router.push(`/app/sites/${response.data.data}/templates`);
-    },
-    onError: () => {
-      toast({
-        title: 'Error',
-        description: 'Failed to update profile. Please try again.',
-        variant: 'destructive',
-      });
-    },
-  });
-
   return (
     <div className="pt-10">
       <Card className="max-w-2xl mx-auto">
@@ -82,7 +67,7 @@ export function SiteForm() {
           <h2 className="text-2xl font-bold mb-6">Site</h2>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(values => createSite.mutate(values))}
+              onSubmit={form.handleSubmit(values => action.mutate(values))}
               className="space-y-6"
             >
               <FormField
@@ -160,9 +145,9 @@ export function SiteForm() {
               <Button
                 type="submit"
                 className="w-full"
-                disabled={createSite.isPending}
+                disabled={action.isPending}
               >
-                {createSite.isPending ? 'Creating...' : 'Create site'}
+                {action.isPending ? 'Processing...' : title}
               </Button>
             </form>
           </Form>

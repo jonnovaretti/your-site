@@ -24,10 +24,14 @@ export class SelectTemplateService {
     templateId: number;
   }): Promise<boolean> {
     const user = await this.userService.findById(userId);
-    const site = await this.siteRepository.findOneBy({ id: siteId });
+    const sites = await this.siteRepository.find({
+      where: { id: siteId },
+      relations: { createdBy: true },
+    });
     const template = await this.templateRepository.findOneBy({
       id: templateId,
     });
+    const site = sites[0];
 
     if (!user || !site || !template) {
       throw new BusinessRequirementError(
